@@ -1,4 +1,3 @@
-
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -7,16 +6,17 @@ default: &default
 development:
   <<: *default
   database: anycasts_development
+  username: anycasts
+  password: <%= ENV['ANYCASTS_DATABASE_PASSWORD'] %>
 
 test:
   <<: *default
   database: anycasts_test
-
-#   production:
-#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
 
 production:
   <<: *default
   database: anycasts_production
   username: anycasts
   password: <%= ENV['ANYCASTS_DATABASE_PASSWORD'] %>
+#   production:
+#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
