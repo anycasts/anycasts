@@ -13,7 +13,7 @@
 #     policy.script_src  :self, :https
 #     policy.style_src   :self, :https
 #     # Specify URI for violation reports
-#     # policy.report_uri "/csp-violation-report-endpoint"
+#     # policy.report_uri '/csp-violation-report-endpoint'
 #   end
 #
 #   # Generate session nonces for permitted importmap and inline scripts
