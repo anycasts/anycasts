@@ -6,7 +6,7 @@ default: &default
 development:
   <<: *default
   database: anycasts_development
-  username: anycasts
+  username: <%= ENV['ANYCASTS_DATABASE_USERNAME'] %>
   password: <%= ENV['ANYCASTS_DATABASE_PASSWORD'] %>
 
 test:
@@ -16,7 +16,4 @@ test:
 production:
   <<: *default
   database: anycasts_production
-  username: anycasts
-  password: <%= ENV['ANYCASTS_DATABASE_PASSWORD'] %>
-#   production:
-#     url: <%= ENV["MY_APP_DATABASE_URL"] %>
+  url: <%= ENV['ANYCASTS_DATABASE_URL'] %>
