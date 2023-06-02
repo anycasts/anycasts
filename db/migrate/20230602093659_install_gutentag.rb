@@ -1,9 +1,9 @@
 class InstallGutentag < ActiveRecord::Migration[7.0]
   def change
     create_table :gutentag_taggings do |t|
-      t.integer :tag_id
-      t.integer :taggable_id
-      t.string :taggable_type
+      t.integer :tag_id, null: false
+      t.integer :taggable_id, null: false
+      t.string :taggable_type, null: false
       t.timestamps
     end
 
@@ -13,8 +13,8 @@ class InstallGutentag < ActiveRecord::Migration[7.0]
       :unique => true, :name => 'unique_taggings'
 
     create_table :gutentag_tags do |t|
-      t.string :name
-      t.integer :taggings_count, default: 0
+      t.string :name, null: false
+      t.integer :taggings_count, default: 0, null: false
       t.timestamps
     end
 
