@@ -31,5 +31,6 @@ end
 group :development do
   gem 'better_errors'
   gem 'web-console'
+  gem 'sassc'
   gem 'rufo'
 end
