@@ -2,29 +2,21 @@ require 'sequel/core'
 
 class RodauthMain < Rodauth::Rails::Auth
   configure do
-    # List of authentication features that are loaded.
-    enable :create_account, :verify_account, :verify_account_grace_period,
-      :login, :logout, :remember,
-      :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change, :close_account
+    enable :create_account,
+           :verify_account,
+           :verify_account_grace_period,
+           :login,
+           :logout,
+           :remember,
+           :reset_password,
+           :change_password,
+           :change_password_notify,
+           :change_login,
+           :verify_login_change,
+           :close_account,
+           :json
 
-    # See the Rodauth documentation for the list of available config options:
-    # http://rodauth.jeremyevans.net/documentation.html
-
-    # ==> General
-    # Initialize Sequel and have it reuse Active Record's database connection.
     db Sequel.postgres(extensions: :activerecord_connection, keep_reference: false)
-
-    # Change prefix of table and foreign key column names from default "account"
-    # accounts_table :users
-    # verify_account_table :user_verification_keys
-    # verify_login_change_table :user_login_change_keys
-    # reset_password_table :user_password_reset_keys
-    # remember_table :user_remember_keys
-
-    # The secret key used for hashing public-facing tokens for various features.
-    # Defaults to Rails `secret_key_base`, but you can use your own secret key.
-    # hmac_secret "c24ba8673b12d9cbc7c93a6dbc3672df8ebc87f44539f5c79c2d5abb367c805b4dfb74cb2239c002e1f1e21897caa775301a9cef6b0ff40b66db8a193862b4c4"
 
     # Use path prefix for all routes.
     # prefix "/auth"
@@ -66,24 +58,31 @@ class RodauthMain < Rodauth::Rails::Auth
     create_reset_password_email do
       RodauthMailer.reset_password(self.class.configuration_name, account_id, reset_password_key_value)
     end
+
     create_verify_account_email do
       RodauthMailer.verify_account(self.class.configuration_name, account_id, verify_account_key_value)
     end
+
     create_verify_login_change_email do |_login|
       RodauthMailer.verify_login_change(self.class.configuration_name, account_id, verify_login_change_key_value)
     end
+
     create_password_changed_email do
       RodauthMailer.password_changed(self.class.configuration_name, account_id)
     end
+
     # create_reset_password_notify_email do
     #   RodauthMailer.reset_password_notify(self.class.configuration_name, account_id)
     # end
+
     # create_email_auth_email do
     #   RodauthMailer.email_auth(self.class.configuration_name, account_id, email_auth_key_value)
     # end
+
     # create_unlock_account_email do
     #   RodauthMailer.unlock_account(self.class.configuration_name, account_id, unlock_account_key_value)
     # end
+
     send_email do |email|
       # queue email delivery on the mailer after the transaction commits
       db.after_commit { email.deliver_later }
@@ -110,18 +109,6 @@ class RodauthMain < Rodauth::Rails::Auth
     password_minimum_length 8
     # bcrypt has a maximum input length of 72 bytes, truncating any extra bytes.
     password_maximum_bytes 72
-
-    # Custom password complexity requirements (alternative to password_complexity feature).
-    # password_meets_requirements? do |password|
-    #   super(password) && password_complex_enough?(password)
-    # end
-    # auth_class_eval do
-    #   def password_complex_enough?(password)
-    #     return true if password.match?(/\d/) && password.match?(/[^a-zA-Z\d]/)
-    #     set_password_requirement_error_message(:password_simple, "requires one number and one special character")
-    #     false
-    #   end
-    # end
 
     # ==> Remember Feature
     # Remember all logged in users.
