@@ -3,9 +3,8 @@
   "version": "1.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:dev": "vite build -w --no-minify --mode development"
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^7.3.0"
