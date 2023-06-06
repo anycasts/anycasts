@@ -58,6 +58,21 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "anycasts_production"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    authentication: 'login',
+    enable_starttls_auto: true,
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    address: ENV['SMTP_SERVER'],
+    port: ENV.fetch('SMTP_PORT', 465),
+    ssl: ENV['SMTP_SSL'].present?
+  }
+
+  config.action_mailer.default_url_options = {
+    host: 'anycasts.vercel.app',
+    protocol: 'https'
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
