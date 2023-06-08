@@ -8,7 +8,9 @@ gem 'pg', '~> 1.1'
 
 gem 'pagy', '~> 6.0'
 gem 'pagy_cursor', '~> 0.6.0'
+
 gem 'view_component', '~> 3.1'
+gem 'basicons_helper', '~> 1.0'
 
 gem 'interactor', '~> 3.1'
 gem 'gutentag', '~> 2.6'

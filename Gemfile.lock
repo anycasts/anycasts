@@ -72,6 +72,11 @@ GEM
     audited (5.3.3)
       activerecord (>= 5.0, < 7.1)
       request_store (~> 1.2)
+    basicons (1.0.5)
+    basicons_helper (1.0.2)
+      actionview (~> 7.0)
+      basicons (~> 1.0)
+      railties (~> 7.0)
     bcrypt (3.1.18)
     better_errors (2.10.0)
       erubi (>= 1.0.0)
@@ -234,6 +239,7 @@ PLATFORMS
 
 DEPENDENCIES
   audited (~> 5.3)
+  basicons_helper (~> 1.0)
   better_errors
   bootsnap
   debug
